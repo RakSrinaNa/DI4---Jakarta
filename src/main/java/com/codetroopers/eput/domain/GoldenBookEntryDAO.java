@@ -17,11 +17,9 @@
 package com.codetroopers.eput.domain;
 
 import com.codetroopers.eput.domain.entities.GoldenBookEntry;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -31,11 +29,7 @@ public class GoldenBookEntryDAO {
     EntityManager em;
 
     public List<GoldenBookEntry> all() {
-        List<GoldenBookEntry> bookEntries = em.createQuery("SELECT g from GoldenBookEntry g", GoldenBookEntry.class).getResultList();
-        bookEntries.add(new GoldenBookEntry("John", "C'est trop bien, je peux plus m'en passer"));
-        bookEntries.add(new GoldenBookEntry("Henry", "waaaaaa, j'adore"));
-        bookEntries.add(new GoldenBookEntry("Marc", "Je veux la même chez moi !"));
-        return bookEntries;
+        return em.createQuery("SELECT g from GoldenBookEntry g", GoldenBookEntry.class).getResultList();
     }
 
     public GoldenBookEntry create() {
