@@ -61,4 +61,14 @@ public class GoldenBookEntry {
     public void setAuthor(final String author) {
         this.author = author;
     }
+    
+    public int getNote()
+    {
+        return note;
+    }
+    
+    public void setNote(int note)
+    {
+        this.note = note;
+    }
 }
