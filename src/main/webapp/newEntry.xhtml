@@ -10,8 +10,12 @@
         <h:form>
             Message : <h:inputTextarea value="#{newBookEntry.content}"/><br/>
             Note : <h:inputText value="#{newBookEntry.note}" validatorMessage="Only values between 0 and 10 are accepted!" id="note" converter="javax.faces.Integer">
-                        <f:validateLongRange minimum="0" maximum="10" for="note"/>
-                    </h:inputText><br/>
+            <f:validateLongRange minimum="0" maximum="10" for="note"/>
+        </h:inputText><br/>
+
+            <h:dataTable var="assign" value="#{newBookEntry.tags}">
+                <h:inputText id="assignName" value="#{assign}"/>
+            </h:dataTable>
 
             <h:commandButton value="Save"
                              action="#{goldenBookEntryController.insertNewEntry}"/>
