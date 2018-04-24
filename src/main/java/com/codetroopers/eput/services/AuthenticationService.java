@@ -54,6 +54,7 @@ public class AuthenticationService implements Serializable
 	
 	String login(final String nickName, final String password)
 	{
+		
 		boolean result = false;
 		return null;
 	}
