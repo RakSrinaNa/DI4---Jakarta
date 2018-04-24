@@ -34,6 +34,7 @@ public class UserDAO {
 
     //tag::allMethod[]
     public List<User> all(){
+        System.out.println(em);
         return em.createQuery("SELECT u FROM User u", User.class).getResultList();
     }
     //end::allMethod[]

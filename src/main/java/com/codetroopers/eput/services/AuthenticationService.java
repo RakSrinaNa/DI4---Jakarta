@@ -1,5 +1,6 @@
 package com.codetroopers.eput.services;
 
+import com.codetroopers.eput.domain.UserDAO;
 import com.codetroopers.eput.models.UserInfo;
 import javax.enterprise.context.ApplicationScoped;
 import javax.faces.application.FacesMessage;
@@ -27,11 +28,13 @@ public class AuthenticationService implements Serializable
 	 */
 	public String login(final UserInfo userInfo)
 	{
-		if("tpjava".equals(userInfo.getName()) && "secret".equals(userInfo.getPassword()))
+		
+		//if("tpjava".equals(userInfo.getName()) && "secret".equals(userInfo.getPassword()))
+		if(isValidLogin(userInfo.getName(), userInfo.getPassword()))
 		{
 			userInfo.setLoggedIn(true);
 			System.out.println("LOGGED");
-			return "success";
+			return "entries";
 		}
 		System.out.println("NOT LOGGED");
 		facesContext.addMessage("Invalid credentials", new FacesMessage("Invalid credentials !"));
@@ -53,5 +56,10 @@ public class AuthenticationService implements Serializable
 	{
 		boolean result = false;
 		return null;
+	}
+	
+	private boolean isValidLogin(String user, String password)
+	{
+		return new UserDAO().all().stream().anyMatch(u -> u.name.equals(user) && u.password.equals(password));
 	}
 }
