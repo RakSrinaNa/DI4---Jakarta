@@ -9,6 +9,7 @@ import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.persistence.EntityManager;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -25,7 +26,9 @@ public class GoldenBookEntryService {
 
 
     public void insertNewGoldenBookEntry(final GoldenBookEntry entry) {
-
+        entry.setAuthor(userInfo.getName());
+        entry.setCreatedAt(new Date());
+        em.persist(entry);
     }
 
     @Produces

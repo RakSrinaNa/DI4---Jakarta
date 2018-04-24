@@ -23,19 +23,21 @@ import javax.persistence.EntityManager;
 import java.util.Date;
 import java.util.List;
 
-
 @Stateless
-public class GoldenBookEntryDAO {
-    @Inject
-    EntityManager em;
-
-    public List<GoldenBookEntry> all() {
-        return em.createQuery("SELECT g from GoldenBookEntry g", GoldenBookEntry.class).getResultList();
-    }
-
-    public GoldenBookEntry create() {
-        GoldenBookEntry goldenBookEntry = new GoldenBookEntry("AUTHOR", "Comment", new Date());
-        em.persist(goldenBookEntry);
-        return goldenBookEntry;
-    }
+public class GoldenBookEntryDAO
+{
+	@Inject
+	EntityManager em;
+	
+	public List<GoldenBookEntry> all()
+	{
+		return em.createQuery("SELECT g from GoldenBookEntry g", GoldenBookEntry.class).getResultList();
+	}
+	
+	public GoldenBookEntry create()
+	{
+		GoldenBookEntry goldenBookEntry = new GoldenBookEntry("AUTHOR", "Comment", new Date());
+		em.persist(goldenBookEntry);
+		return goldenBookEntry;
+	}
 }
