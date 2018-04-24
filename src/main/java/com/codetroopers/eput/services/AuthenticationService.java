@@ -13,6 +13,8 @@ import java.io.Serializable;
 @ApplicationScoped
 public class AuthenticationService implements Serializable
 {
+	@Inject
+	UserDAO userDAO;
 	
 	@Inject
 	FacesContext facesContext;
@@ -60,6 +62,6 @@ public class AuthenticationService implements Serializable
 	
 	private boolean isValidLogin(String user, String password)
 	{
-		return new UserDAO().all().stream().anyMatch(u -> u.name.equals(user) && u.password.equals(password));
+		return userDAO.all().stream().anyMatch(u -> u.name.equals(user) && u.password.equals(password));
 	}
 }
