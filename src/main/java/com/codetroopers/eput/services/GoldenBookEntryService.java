@@ -8,6 +8,7 @@ import javax.ejb.Stateless;
 import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
 import javax.inject.Named;
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -19,10 +20,11 @@ public class GoldenBookEntryService {
     UserInfo userInfo;
     @Inject
     GoldenBookEntryDAO bookEntryDAO;
+    @Inject
+    EntityManager em;
 
 
     public void insertNewGoldenBookEntry(final GoldenBookEntry entry) {
-
 
     }
 

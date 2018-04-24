@@ -31,7 +31,7 @@ public class GoldenBookEntryDAO {
     EntityManager em;
 
     public List<GoldenBookEntry> all() {
-        List<GoldenBookEntry> bookEntries = new ArrayList<>();
+        List<GoldenBookEntry> bookEntries = em.createQuery("SELECT g from GoldenBookEntry g", GoldenBookEntry.class).getResultList();
         bookEntries.add(new GoldenBookEntry("John", "C'est trop bien, je peux plus m'en passer"));
         bookEntries.add(new GoldenBookEntry("Henry", "waaaaaa, j'adore"));
         bookEntries.add(new GoldenBookEntry("Marc", "Je veux la même chez moi !"));
