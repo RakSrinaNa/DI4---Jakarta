@@ -13,7 +13,7 @@ import java.io.Serializable;
 @ApplicationScoped
 public class AuthenticationService implements Serializable
 {
-	
+
 	@Inject
 	FacesContext facesContext;
 	
@@ -54,7 +54,7 @@ public class AuthenticationService implements Serializable
 	
 	String login(final String nickName, final String password)
 	{
-		
+
 		boolean result = false;
 		return null;
 	}
