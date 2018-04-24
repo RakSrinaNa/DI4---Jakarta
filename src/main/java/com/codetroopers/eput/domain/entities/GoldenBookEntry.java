@@ -11,6 +11,7 @@ public class GoldenBookEntry {
     private Long id;
     private String author;
     private String content;
+    private int note;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
 
@@ -18,11 +19,11 @@ public class GoldenBookEntry {
         this.createdAt = new Date();
     }
 
-    public GoldenBookEntry(final String author, final String content) {
-        this(author, content, new Date());
+    public GoldenBookEntry(final String author, final String content, int note) {
+        this(author, content, note, new Date());
     }
 
-    public GoldenBookEntry(final String author, final String content, final Date createdAt) {
+    public GoldenBookEntry(final String author, final String content, int note, final Date createdAt) {
         this.author = author;
         this.content = content;
         this.createdAt = createdAt;

@@ -20,7 +20,6 @@ import com.codetroopers.eput.domain.entities.GoldenBookEntry;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
-import java.util.Date;
 import java.util.List;
 
 @Stateless
@@ -36,7 +35,7 @@ public class GoldenBookEntryDAO
 	
 	public GoldenBookEntry create()
 	{
-		GoldenBookEntry goldenBookEntry = new GoldenBookEntry("AUTHOR", "Comment", new Date());
+		GoldenBookEntry goldenBookEntry = new GoldenBookEntry("AUTHOR", "Comment", 0);
 		em.persist(goldenBookEntry);
 		return goldenBookEntry;
 	}
