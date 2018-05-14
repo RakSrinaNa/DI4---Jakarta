@@ -37,13 +37,30 @@ public class User {
     public String email;
     @NotNull
     public String password;
-
+    
     public User(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
     public User() {
+    }
+    
+    public Long getId(){ return id; }
+    
+    public String getName()
+    {
+        return name;
+    }
+    
+    public String getEmail()
+    {
+        return email;
+    }
+    
+    public String getPassword()
+    {
+        return password;
     }
 }
 //end::class[]

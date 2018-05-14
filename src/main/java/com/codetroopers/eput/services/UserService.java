@@ -18,9 +18,10 @@ package com.codetroopers.eput.services;
 
 import com.codetroopers.eput.domain.UserDAO;
 import com.codetroopers.eput.domain.entities.User;
-
 import javax.ejb.Stateless;
+import javax.enterprise.inject.Produces;
 import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.List;
 
 /**
@@ -28,12 +29,19 @@ import java.util.List;
  */
 //tag::class[]
 @Stateless
+@Named
 public class UserService {
     @Inject
     public UserDAO userDAO; // <1>
-
+    
     public List<User> all(){
         return userDAO.all();
+    }
+    
+    @Produces
+    @Named
+    public List<User> listAllUsers(){
+        return all();
     }
 
     public User create(){
@@ -42,6 +50,12 @@ public class UserService {
 
     public User create(User user) {
         return userDAO.save(user);
+    }
+    
+    public String deleteUser(final User user)
+    {
+        userDAO.delete(user);
+        return "";
     }
 }
 //end::class[]

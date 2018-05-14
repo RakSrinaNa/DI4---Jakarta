@@ -17,16 +17,17 @@ public class GoldenBookEntry
 	private int note;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
-	@ElementCollection
-	private List<String> tags;
+	@ElementCollection(fetch = FetchType.EAGER)
+	private List<String> tags = new ArrayList<>();
 	
 	public GoldenBookEntry()
 	{
 		this.createdAt = new Date();
-		this.tags = new ArrayList<>(3);
-		this.tags.add("");
-		this.tags.add("");
-		this.tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
 	}
 	
 	public GoldenBookEntry(final String author, final String content, int note)
@@ -39,7 +40,16 @@ public class GoldenBookEntry
 		this.author = author;
 		this.content = content;
 		this.createdAt = createdAt;
-		this.tags = new ArrayList<>(3);
+		tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
+		tags.add("");
+	}
+	
+	public void cleanTags()
+	{
+		tags.removeIf(s -> s == null || s.isEmpty());
 	}
 	
 	/************************** GETTER / SETTERS ****************************/
@@ -102,17 +112,17 @@ public class GoldenBookEntry
 	{
 		return tags;
 	}
-	
+
 	public void addTag(String tag)
 	{
 		this.tags.add(tag);
 	}
-	
+
 	public void removeTag(String tag)
 	{
 		this.tags.remove(tag);
 	}
-	
+
 	public void setTags(List<String> tags)
 	{
 		this.tags = tags;

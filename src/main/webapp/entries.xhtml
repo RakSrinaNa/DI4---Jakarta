@@ -1,13 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:h="http://xmlns.jcp.org/jsf/html"
                 template="/WEB-INF/templates/default.xhtml">
 
     <ui:define name="content">
         <ui:repeat value="#{loadGoldenBookEntries}" var="entry">
             <div class="well-large">
                 <div class="item">#{entry.content}</div>
-                <div class="info">On #{entry.createdAt}, by #{entry.author}, noted #{entry.note}, tags: #{entry.tagsAsList()}.</div>
+                <div class="info">
+                    On #{entry.createdAt}, by #{entry.author}, noted #{entry.note}, tags:
+                    <ui:repeat value="#{entry.tags}" var="t">
+                        #{t}
+                    </ui:repeat>
+                </div>
+                <h:form class="form-horizontal">
+                    <h:commandButton action="#{goldenBookEntryService.deleteEntry(entry)}" value="Delete"/>
+                </h:form>
             </div>
         </ui:repeat>
     </ui:define>

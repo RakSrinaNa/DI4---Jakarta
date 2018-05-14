@@ -23,8 +23,9 @@ public class GoldenBookEntryController {
 
     public String insertNewEntry() {
         //here we persist our new Entry value
-        if(newEntry.getNote() < 0 || newEntry.getNote() > 10)
+        if(newEntry.getContent().length() < 1 || newEntry.getNote() < 0 || newEntry.getNote() > 10)
             return null;
+        newEntry.cleanTags();
         goldenBookEntryService.insertNewGoldenBookEntry(newEntry);
         return "entries" + "?faces-redirect=true";
     }

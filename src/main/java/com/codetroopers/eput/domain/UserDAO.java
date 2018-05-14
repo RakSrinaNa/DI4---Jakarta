@@ -48,5 +48,10 @@ public class UserDAO {
         em.persist(user);
         return user;
     }
+    
+    public void delete(User entity)
+    {
+        em.remove(em.contains(entity) ? entity : em.merge(entity));
+    }
 }
 //end::class[]

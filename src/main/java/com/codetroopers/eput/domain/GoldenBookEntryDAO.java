@@ -39,4 +39,9 @@ public class GoldenBookEntryDAO
 		em.persist(goldenBookEntry);
 		return goldenBookEntry;
 	}
+	
+	public void delete(GoldenBookEntry entity)
+	{
+		em.remove(em.contains(entity) ? entity : em.merge(entity));
+	}
 }

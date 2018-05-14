@@ -54,12 +54,6 @@ public class AuthenticationService implements Serializable
 		return "login" + "?faces-redirect=true";
 	}
 	
-	String login(final String nickName, final String password)
-	{
-		boolean result = false;
-		return null;
-	}
-	
 	private boolean isValidLogin(String user, String password)
 	{
 		return userDAO.all().stream().anyMatch(u -> u.name.equals(user) && u.password.equals(password));
