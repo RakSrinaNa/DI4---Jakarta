@@ -49,7 +49,7 @@ public class GoldenBookEntry
 	
 	public void cleanTags()
 	{
-		tags.removeIf(s -> s == null || s.isEmpty());
+		tags = tags.stream().filter(s -> s != null && !s.isEmpty()).distinct().collect(Collectors.toList());
 	}
 	
 	/************************** GETTER / SETTERS ****************************/

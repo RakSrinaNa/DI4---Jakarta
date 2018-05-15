@@ -11,7 +11,7 @@
                 <div class="info">
                     On #{entry.createdAt}, by #{entry.author}, noted #{entry.note}, tags:
                     <ui:repeat value="#{entry.tags}" var="t">
-                        #{t}
+                        <span style="border: 2px solid; margin-right: 2px;">#{t}</span>
                     </ui:repeat>
                 </div>
                 <h:form class="form-horizontal">
