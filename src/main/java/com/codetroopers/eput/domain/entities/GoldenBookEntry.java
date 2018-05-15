@@ -14,6 +14,7 @@ public class GoldenBookEntry
 	private Long id;
 	private String author;
 	private String content;
+	private String title;
 	private int note;
 	@Temporal(TemporalType.TIMESTAMP)
 	private Date createdAt;
@@ -30,9 +31,25 @@ public class GoldenBookEntry
 		tags.add("");
 	}
 	
+	public String getTitle()
+	{
+		return title;
+	}
+	
 	public GoldenBookEntry(final String author, final String content, int note)
 	{
 		this(author, content, note, new Date());
+	}
+	
+	public GoldenBookEntry(final String author, final String title, final String content, int note)
+	{
+		this(author, content, note, new Date());
+		this.title = title;
+	}
+	
+	public void setTitle(String title)
+	{
+		this.title = title;
 	}
 	
 	public GoldenBookEntry(final String author, final String content, int note, final Date createdAt)

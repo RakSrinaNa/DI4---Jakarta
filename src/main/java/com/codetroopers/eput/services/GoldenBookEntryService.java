@@ -27,7 +27,8 @@ public class GoldenBookEntryService
 	
 	public void insertNewGoldenBookEntry(final GoldenBookEntry entry)
 	{
-		entry.setAuthor(userInfo.getName());
+		if(entry.getAuthor() == null)
+			entry.setAuthor(userInfo.getName());
 		entry.setCreatedAt(new Date());
 		em.persist(entry);
 	}
@@ -43,5 +44,15 @@ public class GoldenBookEntryService
 	{
 		bookEntryDAO.delete(entry);
 		return "";
+	}
+	
+	public GoldenBookEntry getById(Long id)
+	{
+		return bookEntryDAO.getById(id);
+	}
+	
+	public void updateBook(GoldenBookEntry book)
+	{
+		bookEntryDAO.update(book);
 	}
 }

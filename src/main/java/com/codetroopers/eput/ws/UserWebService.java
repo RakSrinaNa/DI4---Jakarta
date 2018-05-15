@@ -23,6 +23,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.Application;
 import javax.ws.rs.core.MediaType;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Sample REST WebService, it will be under "ws" app path
@@ -36,19 +37,42 @@ public class UserWebService extends Application
 	@Inject
 	UserService userService;
 	
-	@GET // <4>
-	public List<User> users()
+	class RESTUser
 	{
-		return userService.all();
+		private final Long id;
+		private final String name;
+		
+		public RESTUser(User user)
+		{
+			this.id = user.id;
+			this.name = user.name;
+		}
+		
+		public Long getId()
+		{
+			return id;
+		}
+		
+		public String getName()
+		{
+			return name;
+		}
+	}
+	
+	@GET // <4>
+	public List<RESTUser> users()
+	{
+		return userService.all().stream().map(RESTUser::new).collect(Collectors.toList());
 	}
 	
 	@POST // <4>
-	public User create(@QueryParam("name") String name, // <5>
+	@Consumes({MediaType.APPLICATION_JSON})
+	public RESTUser create(@QueryParam("name") String name, // <5>
 			@QueryParam(value = "email") String email)
 	{
 		User user = new User(name, email);
 		user.password = "<FROMWS>";
-		return userService.create(user);
+		return new RESTUser(userService.create(user));
 	}
 }
 //end::class[]

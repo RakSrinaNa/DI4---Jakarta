@@ -44,4 +44,14 @@ public class GoldenBookEntryDAO
 	{
 		em.remove(em.contains(entity) ? entity : em.merge(entity));
 	}
+	
+	public GoldenBookEntry getById(Long id)
+	{
+		return em.find(GoldenBookEntry.class, id);
+	}
+	
+	public void update(GoldenBookEntry book)
+	{
+		em.merge(book);
+	}
 }

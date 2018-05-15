@@ -25,7 +25,7 @@
     </dependencies>
     <build>
         <finalName>tpjavaee</finalName>
-        <!--<plugins>
+        <plugins>
             <plugin>
                 <groupId>org.wildfly.plugins</groupId>
                 <artifactId>wildfly-maven-plugin</artifactId>
@@ -37,7 +37,7 @@
                     </javaOpts>
                 </configuration>
             </plugin>
-        </plugins>-->
+        </plugins>
     </build>
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>

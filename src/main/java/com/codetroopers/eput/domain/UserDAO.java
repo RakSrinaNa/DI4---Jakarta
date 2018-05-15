@@ -17,10 +17,10 @@
 package com.codetroopers.eput.domain;
 
 import com.codetroopers.eput.domain.entities.User;
-
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import java.util.List;
 
 /**
@@ -28,30 +28,52 @@ import java.util.List;
  */
 //tag::class[]
 @Stateless
-public class UserDAO {
-    @Inject
-    EntityManager em;
-
-    //tag::allMethod[]
-    public List<User> all(){
-        return em.createQuery("SELECT u FROM User u", User.class).getResultList();
-    }
-    //end::allMethod[]
-
-    public User create() {
-        User user = new User("NAME", "name@code-troopers.com");
-        em.persist(user);
-        return user;
-    }
-
-    public User save(User user) {
-        em.persist(user);
-        return user;
-    }
-    
-    public void delete(User entity)
-    {
-        em.remove(em.contains(entity) ? entity : em.merge(entity));
-    }
+public class UserDAO
+{
+	@Inject
+	EntityManager em;
+	
+	//tag::allMethod[]
+	public List<User> all()
+	{
+		return em.createQuery("SELECT u FROM User u", User.class).getResultList();
+	}
+	//end::allMethod[]
+	
+	public User create()
+	{
+		User user = new User("NAME", "name@code-troopers.com");
+		em.persist(user);
+		return user;
+	}
+	
+	public User save(User user)
+	{
+		em.persist(user);
+		return user;
+	}
+	
+	public void delete(User entity)
+	{
+		em.remove(em.contains(entity) ? entity : em.merge(entity));
+	}
+	
+	public User getById(Long id)
+	{
+		return em.find(User.class, id);
+	}
+	
+	public User getByName(String name)
+	{
+		try
+		{
+			return em.createQuery("SELECT u FROM User u WHERE u.name=:name", User.class).setParameter("name", name).getSingleResult();
+		}
+		catch(NoResultException e)
+		{
+			e.printStackTrace();
+		}
+		return null;
+	}
 }
 //end::class[]

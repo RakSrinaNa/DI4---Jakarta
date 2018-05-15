@@ -57,5 +57,15 @@ public class UserService {
         userDAO.delete(user);
         return "";
     }
+    
+    public User getById(Long id)
+    {
+        return userDAO.getById(id);
+    }
+    
+    public User getByName(String name)
+    {
+        return userDAO.getByName(name);
+    }
 }
 //end::class[]
