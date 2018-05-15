@@ -33,7 +33,6 @@ import java.util.List;
 @Produces(MediaType.APPLICATION_JSON) // <3>
 public class UserWebService extends Application
 {
-	
 	@Inject
 	UserService userService;
 	

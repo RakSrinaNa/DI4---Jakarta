@@ -58,11 +58,6 @@ public class GoldenBookEntry
 		return id;
 	}
 	
-	public String getTagsAsList()
-	{
-		return tags.stream().map(s -> "#" + s).collect(Collectors.joining(", "));
-	}
-	
 	public void setId(final Long id)
 	{
 		this.id = id;

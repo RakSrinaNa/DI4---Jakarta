@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <!-- head -->
+</head>
+<body>
+  <div id="app"></div>
+  <script src="node_modules/vue/dist/vue.min.js"></script>
+  <script src="node_modules/semantic-ui-vue/dist/umd/semantic-ui-vue.min.js"></script>
+  <script src="node_modules/axios/dist/axios.min.js"></script>
+  <script src="goldenbookentry.js"></script>
+  <script src="createGoldenBookEntry.js"></script>
+  <link rel="stylesheet" type="text/css" href="node_modules/semantic-ui-css/semantic.min.css"></link>
+  <script>
+  Vue.use(SemanticUIVue);
+  var app = new Vue({
+    el: '#app',
+    data() {
+      return {
+        entries: [],
+        users: [],
+        user : {},
+        modalOpen : false,
+        loading: false
+      }
+    },
+    created: async function(){
+      try {
+        this.loading = true
+        const response = await axios.get(`ws/goldenbook`)
+        this.entries = response.data
+        const userResponse = await axios.get(`ws/users`)
+        this.users = userResponse.data.map ( user => { 
+          return { 
+            id: user.id, 
+            text : user.name, 
+            value : user, 
+            image : { avatar: true, src : `https://api.adorable.io/avatars/285/${user.id}@code-troopers.com.png` }
+          } })
+        this.user = this.users[0].value
+      } catch (e) {
+        console.error(e)
+      }
+      this.loading = false
+    },
+    methods:{
+      toggleModal() {
+          this.modalOpen = !this.modalOpen;
+      },
+      toggleLoading(){
+          this.loading = !this.loading;
+      },
+      reloadEntries(){
+        var that = this;
+        axios.get(`ws/goldenbook`).then(function(response){
+          that.entries = response.data
+        })
+      }
+    },
+    template: `
+      <sui-container>
+        <sui-dimmer v-bind:active="loading">
+          <sui-loader />
+        </sui-dimmer>
+        <sui-dropdown
+          fluid
+          placeholder="Select user"
+          selection
+          :options="users"
+          v-model="user"
+        />
+        <sui-divider/>
+        <sui-button floated="right" content="Add" icon="plus" @click.native="toggleModal"/>
+        <h1>Golden Book Entries</h1>
+        <sui-divider></sui-divider>
+        <sui-card-group :items-per-row="4">
+            <golden-book-entry v-for="entry in entries" v-bind:entry="entry" v-bind:user="user">
+        </sui-card-group>
+        <golden-book-entry-create v-bind:modal-open="modalOpen" v-on:modal-toggle="toggleModal()" v-on:loading-toggle="toggleLoading()" v-on:entries-reload="reloadEntries()"></golden-book-entry-create>
+      </sui-container>
+      `
+  });
+  </script>
+</body>
+</html>

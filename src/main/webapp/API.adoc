@@ -1,0 +1,213 @@
+# API design doc
+
+:base_url: http://localhost:8080/tpjavaee
+
+## Get users
+
+NOTE: This method allows to get all users registered within the app. It is not paginated, so further developments are required to allow searching (using a `q` queryString parameter for instance) or paging.
+
+Method:: GET
+URI:: {base_url}/ws/users/ 
+Parameters:: none
+Response::
+[source,json]
+----
+[ 
+    { 
+      id: Long,
+      name: String,
+    },
+    {id,name},
+    ....
+]
+----
+
+Example::
+--
+
+[source,json]
+----
+[
+    { 
+        id: 1,
+        name: "Cedric"
+    },
+    { 
+        id: 2,
+        name: "Florian"
+    }
+]
+----
+--
+
+
+## List GoldenBookEntry
+
+NOTE: This method allows to list existing entries in database.
+
+Method:: GET
+URI:: {base_url}/ws/goldenbook/
+Parameters:: none
+Response::
+--
+* format
+[source,json]
+----
+[
+    {
+        title: String, // title of the message
+        body: String, // content of the message
+        userId: Long, // poster user id
+        entryId: Integer // id of the entry
+    },
+    { title, body, userId, entryId }
+    , ....
+]
+----
+* example
+[source,json]
+----
+[
+    {
+        entryId: 462,
+        title: "My beautiful life",
+        body: "liJusto urna volutpat magna fermentum ipsum ac",
+        userId: 1
+    },
+    {
+        entryId: 25,
+        title: "I'm sad",
+        body: "Proin hendrerit habitasse suscipit curae",
+        userId: 2
+    },
+]
+----
+--
+
+
+## Add GoldenBookEntry
+
+NOTE: This method allows to add an entry for the existing user. The created entry is returned with the data saved in database.
+All fields are required and on error, the call should return without an entry id.
+
+Method:: POST
+URI:: {base_url}/ws/goldenbook/
+Parameters::
+--
+* format
+[source, json]
+----
+{
+    title: String, // title of the message
+    body: String, // content of the message
+    userId: Long // poster user id
+}
+----
+* example
+[source,json]
+----
+{
+    title: "My beautiful life",
+    body: "liJusto urna volutpat magna fermentum ipsum ac",
+    userId: 1
+}
+----
+--
+Response::
+--
+* format
+[source,json]
+----
+{
+    title: String, // title of the message
+    body: String, // content of the message
+    userId: Long, // poster user id
+    entryId: Integer // id of the entry
+}
+----
+* example
+[source,json]
+----
+{
+    entryId: 462,
+    title: "My beautiful life",
+    body: "liJusto urna volutpat magna fermentum ipsum ac",
+    userId: 1
+}
+----
+--
+
+## Rate GoldenBookEntry
+
+NOTE: This method allows an existing user to rate an existing golden book entry. Updated rate for entry is returned.
+Error handling is silent, parameters are returned as if it was a proper call.
+
+Method:: PUT
+URI:: {base_url}/ws/goldenbook/rating
+Parameters::
+--
+* format
+[source, json]
+----
+{
+    entryId: Integer, // id of the entry
+    rating: Integer, // rate to set
+    userId: Long // rating user id
+}
+----
+* example
+[source,json]
+----
+{
+    entryId: 1,
+    rating: 5
+    userId: 1
+}
+----
+--
+Response::
+--
+* format
+[source, json]
+----
+{
+    entryId: Integer, // id of the entry
+    rating: Integer, // current rate
+}
+----
+* example
+[source,json]
+----
+{
+    entryId: 1,
+    rating: 3
+}
+----
+--
+
+
+## Delete GoldenBookEntry
+
+NOTE: This method allows a user to delete one of his GoldenBookEntry previously created.
+Expected response is only an HTTP Status Code regarding the status of the performed operation
+
+Method:: DELETE
+URI:: {base_url}/ws/goldenbook/ 
+--
+* format
+[source, json]
+----
+{
+    entryId: Integer, // id of the entry
+    userId: Long // id of current user
+}
+----
+Response::
+[source,json]
+----
+200 or 403, 404
+----
+
+
+
+--
